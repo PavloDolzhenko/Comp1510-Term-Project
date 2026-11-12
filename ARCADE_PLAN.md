@@ -4,6 +4,7 @@
 
 - Game 1: Higher or Lower — difficulty: (copy from the list)
 - Game 2: Rare Find (my own design, based on Krillion) — difficulty: assigned by instructor
+- Game 3 (optional bonus): Speed Typer (my own design) — difficulty: assigned by instructor
 
 ## Game 1: Higher or Lower
 
@@ -56,6 +57,40 @@
   least 15 questions. Each question has at least 5 correct answers. Points per
   answer go from 1 to 10, and a wrong answer is 0. One try per question.
 
+## Game 3: Speed Typer (optional bonus)
+
+- Rules, in a few sentences: The game shows 5 sentences, one at a time. The
+  player types each sentence as fast and as correctly as they can, then
+  presses Enter. The game measures how long each sentence takes using
+  Python's time module. Speed and accuracy both matter, so typing fast with
+  lots of mistakes does not give a high score.
+
+- What one turn looks like: The game shows the sentence number and the
+  sentence, for example "The quick brown fox jumps over the lazy dog." The
+  timer starts as soon as the sentence is shown. The player types the
+  sentence and presses Enter, which stops the timer. The game shows the time
+  taken, the words per minute, and the accuracy for that sentence. Then the
+  next sentence starts.
+
+- How it ends (win, lose, or out of turns): The game ends after all 5
+  sentences are typed. There is no losing early.
+
+- How a score is earned (the formula or rule, and why higher is better):
+  - Words per minute (WPM) = (total characters typed ÷ 5) ÷ (total seconds ÷ 60).
+    Every 5 characters counts as one word, which is the standard way to
+    measure typing speed.
+  - Accuracy = total correct characters ÷ total characters in the sentences.
+    A character is correct if it matches the sentence at the same position.
+    Accuracy is a number from 0 to 1.
+  - Score = WPM × accuracy, rounded to the nearest whole number.
+  - If the player types nothing, the score is 0. Faster and more accurate
+    typing gives a higher score, so higher is better.
+
+- Game settings: 5 sentences per game, picked at random from a bank of at
+  least 15 sentences. Each sentence is between 30 and 60 characters long. The
+  check is case-sensitive, so capital letters must match. One try per
+  sentence.
+
 ## Scoreboard fields
 
 I am keeping the default layout. Every finished game stores the player's name
@@ -68,13 +103,23 @@ game the record belongs to.
       ],
       "rare_find": [
         {"player": "Pavlo", "score": 42}
+      ],
+      "speed_typer": [
+        {"player": "Pavlo", "score": 55}
       ]
     }
 
 ## My own game (optional)
 
 Name: Rare Find. It fills the Game 2 slot. It is based on the trivia game
-Krillion (https://krillion.io/). It fits the contract because play(player_name) runs one full game
-of 7 questions and returns the total points as a nonnegative int (0 to 70).
-Higher is always better. It never touches the scoreboard file and never calls
-exit(). It ends only by returning the score.
+Krillion (https://krillion.io/). It fits the contract because
+play(player_name) runs one full game of 7 questions and returns the total
+points as a nonnegative int (0 to 70). Higher is always better. It never
+touches the scoreboard file and never calls exit(). It ends only by returning
+the score.
+
+Name: Speed Typer. It is my bonus game (Game 3). It fits the contract because
+play(player_name) runs one full game of 5 sentences and returns the score as
+a nonnegative int (WPM × accuracy, rounded). Higher is always better. It only
+uses the standard library (the time and random modules). It never touches the
+scoreboard file and never calls exit(). It ends only by returning the score.
