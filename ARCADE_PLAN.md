@@ -1,65 +1,80 @@
 # My arcade plan
 
-Use this template to draft your plan, then commit your plan and upload it as
-one PDF, `arcade-plan.pdf`, by Friday November 13 at 23:59:59 PT. Paste this
-markdown into a browser converter such as dillinger.io and export a PDF, or
-export from a markdown editor like VS Code. Hand-drawn pages, scanned or
-photographed, are just as good. See `example-plan.md` and `example-plan.pdf`
-for what a filled-in plan looks like. Commit message: `Add arcade plan`
-
 ## Games I chose
 
-(Two required games from the list, with at least one medium or spicy. The
-example game does not count. A third game is optional bonus. If you pitch a
-game of your own design, list it in the slot it would fill and write "assigned
-by instructor" for its difficulty.)
+- Game 1: Higher or Lower — difficulty: (copy from the list)
+- Game 2: Rare Find (my own design, based on Krillion) — difficulty: assigned by instructor
 
-- Game 1: (name) — difficulty:
-- Game 2: (name) — difficulty:
-- Game 3 (optional bonus): (name) — difficulty:
+## Game 1: Higher or Lower
 
-Write each Game section so another student could implement the game without
-asking you a question.
+- Rules, in a few sentences: The game uses a normal 52-card deck that is
+  shuffled at the start. One card is shown face up. The player guesses whether
+  the next card will be higher or lower than the shown card. Aces are low
+  (Ace = 1) and Kings are high (King = 13). Suits do not matter. If the next
+  card has the same rank, the guess counts as wrong.
 
-## Game 1: (name)
+- What one turn looks like: The game shows the current card, for example
+  "7 of Hearts". The player types "h" for higher or "l" for lower. Any other
+  input gets a friendly message and the question again. The game shows the
+  next card and says if the guess was right. If it was right, the new card
+  becomes the current card.
 
-- Rules, in a few sentences:
-- What one turn looks like:
-- How it ends (win, lose, or out of turns):
-- How a score is earned (the formula or rule, and why higher is better):
-- Game settings (the fixed numbers or choices that define the game, such as
-  grid size, number of guesses, word length, or question count):
+- How it ends (win, lose, or out of turns): The game ends when the player makes
+  a wrong guess, or when the deck runs out of cards.
 
-## Game 2: (name)
+- How a score is earned (the formula or rule, and why higher is better): The
+  player gets 10 points for each correct guess in a row. Score = correct
+  guesses × 10. More correct guesses means a higher score, so higher is better.
 
-- Rules, in a few sentences:
-- What one turn looks like:
-- How it ends (win, lose, or out of turns):
-- How a score is earned (the formula or rule, and why higher is better):
-- Game settings (the fixed numbers or choices that define the game, such as
-  grid size, number of guesses, word length, or question count):
+- Game settings: one 52-card deck, Ace = 1 and King = 13, a tie counts as
+  wrong, 10 points per correct guess, up to 51 guesses.
 
-## Game 3: (name, optional bonus)
+## Game 2: Rare Find
 
-(Delete this section if you are not doing a bonus game.)
+- Rules, in a few sentences: The game asks 7 questions. Each question has many
+  correct answers. For example: "Name a planet in our solar system." Each
+  correct answer is worth a different number of points. Common answers that
+  most people think of are worth fewer points. Rare answers are worth more
+  points. A wrong answer is worth 0 points. The player picks a smart answer
+  that is correct but not too obvious.
 
-- Rules, in a few sentences:
-- What one turn looks like:
-- How it ends (win, lose, or out of turns):
-- How a score is earned (the formula or rule, and why higher is better):
-- Game settings (the fixed numbers or choices that define the game, such as
-  grid size, number of guesses, word length, or question count):
+- What one turn looks like: The game shows the question number and the
+  question. The player types one answer. The answer is checked without caring
+  about capital letters or extra spaces. The game says if the answer was
+  correct, how many points it was worth, and shows the rarest answer the
+  player could have given. Then the next question starts.
+
+- How it ends (win, lose, or out of turns): The game ends after all 7
+  questions are answered. There is no losing early.
+
+- How a score is earned (the formula or rule, and why higher is better): Every
+  correct answer has a point value from 1 (very common) to 10 (very rare). The
+  score is the total points from all 7 questions. The highest possible score
+  is 70. Rarer correct answers give more points, so higher is better.
+
+- Game settings: 7 questions per game, picked at random from a bank of at
+  least 15 questions. Each question has at least 5 correct answers. Points per
+  answer go from 1 to 10, and a wrong answer is 0. One try per question.
 
 ## Scoreboard fields
 
-(What you store for every finished game, how a record identifies its game,
-and the JSON shape. In the default layout, the module name identifies the
-game. If you keep the default layout, say so.)
+I am keeping the default layout. Every finished game stores the player's name
+and their score. The game's module name is the key, so it identifies which
+game the record belongs to.
+
+    {
+      "higher_or_lower": [
+        {"player": "Pavlo", "score": 60}
+      ],
+      "rare_find": [
+        {"player": "Pavlo", "score": 42}
+      ]
+    }
 
 ## My own game (optional)
 
-(Pitch a game of your own design if you want to replace a list pick or serve
-as your bonus game. Give its name, which slot it fills, and why it fits the
-contract. Put its full rules, turn, ending, scoring, and game settings in the
-matching Game section. I assign its difficulty if it fills a required slot. A
-bonus game may be any difficulty. I approve these through the plan.)
+Name: Rare Find. It fills the Game 2 slot. It is based on the trivia game
+Krillion (https://krillion.io/). It fits the contract because play(player_name) runs one full game
+of 7 questions and returns the total points as a nonnegative int (0 to 70).
+Higher is always better. It never touches the scoreboard file and never calls
+exit(). It ends only by returning the score.
